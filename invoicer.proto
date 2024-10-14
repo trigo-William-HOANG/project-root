@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "github.com/maximilienandile/demo-grpc/invoicer";
+option go_package = "github.com/trigo-William-HOANG/project-root/invoicer";
 message Amount{
     int64 amount = 1;
     string currency = 2;

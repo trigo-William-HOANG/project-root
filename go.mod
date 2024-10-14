@@ -1,4 +1,4 @@
-module github.com/maximilienandile/demo-grpc
+module github.com/trigo-William-HOANG/project-root
 
 go 1.23.1
 

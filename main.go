@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/maximilienandile/demo-grpc/invoicer"
+	"github.com/trigo-William-HOANG/project-root/invoicer"
 	"google.golang.org/grpc"
 )
 
