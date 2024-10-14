@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Invoicer_Create_FullMethodName = "/Invoicer/Create"
+	Invoicer_GetInvoice_FullMethodName = "/invoicer.Invoicer/GetInvoice"
 )
 
 // InvoicerClient is the client API for Invoicer service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type InvoicerClient interface {
-	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
+	GetInvoice(ctx context.Context, in *InvoiceRequest, opts ...grpc.CallOption) (*InvoiceResponse, error)
 }
 
 type invoicerClient struct {
@@ -37,10 +37,10 @@ func NewInvoicerClient(cc grpc.ClientConnInterface) InvoicerClient {
 	return &invoicerClient{cc}
 }
 
-func (c *invoicerClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
+func (c *invoicerClient) GetInvoice(ctx context.Context, in *InvoiceRequest, opts ...grpc.CallOption) (*InvoiceResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, Invoicer_Create_FullMethodName, in, out, cOpts...)
+	out := new(InvoiceResponse)
+	err := c.cc.Invoke(ctx, Invoicer_GetInvoice_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *invoicerClient) Create(ctx context.Context, in *CreateRequest, opts ...
 // All implementations must embed UnimplementedInvoicerServer
 // for forward compatibility.
 type InvoicerServer interface {
-	Create(context.Context, *CreateRequest) (*CreateResponse, error)
+	GetInvoice(context.Context, *InvoiceRequest) (*InvoiceResponse, error)
 	mustEmbedUnimplementedInvoicerServer()
 }
 
@@ -62,8 +62,8 @@ type InvoicerServer interface {
 // pointer dereference when methods are called.
 type UnimplementedInvoicerServer struct{}
 
-func (UnimplementedInvoicerServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+func (UnimplementedInvoicerServer) GetInvoice(context.Context, *InvoiceRequest) (*InvoiceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInvoice not implemented")
 }
 func (UnimplementedInvoicerServer) mustEmbedUnimplementedInvoicerServer() {}
 func (UnimplementedInvoicerServer) testEmbeddedByValue()                  {}
@@ -86,20 +86,20 @@ func RegisterInvoicerServer(s grpc.ServiceRegistrar, srv InvoicerServer) {
 	s.RegisterService(&Invoicer_ServiceDesc, srv)
 }
 
-func _Invoicer_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRequest)
+func _Invoicer_GetInvoice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InvoiceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InvoicerServer).Create(ctx, in)
+		return srv.(InvoicerServer).GetInvoice(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Invoicer_Create_FullMethodName,
+		FullMethod: Invoicer_GetInvoice_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InvoicerServer).Create(ctx, req.(*CreateRequest))
+		return srv.(InvoicerServer).GetInvoice(ctx, req.(*InvoiceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -108,12 +108,12 @@ func _Invoicer_Create_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Invoicer_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Invoicer",
+	ServiceName: "invoicer.Invoicer",
 	HandlerType: (*InvoicerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Create",
-			Handler:    _Invoicer_Create_Handler,
+			MethodName: "GetInvoice",
+			Handler:    _Invoicer_GetInvoice_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

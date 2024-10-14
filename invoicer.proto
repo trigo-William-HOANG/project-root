@@ -1,22 +1,17 @@
 syntax = "proto3";
 option go_package = "github.com/trigo-William-HOANG/project-root/invoicer";
-message Amount{
-    int64 amount = 1;
-    string currency = 2;
-}
 
-message CreateRequest{
-    Amount amount = 1;
-    string from = 2;
-    string to = 3;
-}
 
-message CreateResponse{
-    bytes pdf = 1;
-    bytes docx = 2;
-}
+package invoicer;
 
 service Invoicer {
-    rpc Create(CreateRequest) returns (CreateResponse);
+  rpc GetInvoice(InvoiceRequest) returns (InvoiceResponse);
+}
 
+message InvoiceRequest {
+  string id = 1;
+}
+
+message InvoiceResponse {
+  string invoiceJson = 1;  // JSON response string
 }
